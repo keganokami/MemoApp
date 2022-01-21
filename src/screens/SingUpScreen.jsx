@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, } from 'react-native';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, } from 'react-native';
 import Button from '../components/Button';
 import AppBar from '../components/AppBar';
 
@@ -14,7 +14,9 @@ export default function SingUpScreen() {
         <Button label="Save" />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registerd?</Text>
-          <Text style={styles.footerLink}>Log In</Text>
+          <TouchableOpacity>
+            <Text style={styles.footerLink}>Log In</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
