@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, StyleSheet, Text, TextInput, TouchableOpacity,
 } from 'react-native';
@@ -6,12 +6,32 @@ import Button from '../components/Button';
 
 export default function SingUpScreen(props) {
   const { navigation } = props;
+  // useState 第一引数と関数型を配列で返す関数らしい
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
         <Text style={styles.title}>Sing Up</Text>
-        <TextInput style={styles.input} value="Email address" />
-        <TextInput style={styles.input} value="password" />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email Address"
+          textContentType="emailAddress"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          // スマホ側の自動補完
+          textContentType="password"
+        />
         <Button
           onPress={() => {
             navigation.reset({
@@ -62,7 +82,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     fontSize: 16,
     height: 48,
-    color: '#DDDDDD',
     backgroundColor: '#FFFFFF',
     borderColor: '#DDDDDD',
     borderWidth: 1,
