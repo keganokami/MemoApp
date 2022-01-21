@@ -8,18 +8,17 @@ export default function Button(props) {
     <TouchableOpacity style={styles.bottonContainer} onPress={onPress}>
       <Text style={styles.buttonLabel}>{label}</Text>
     </TouchableOpacity>
-  )
+  );
 }
 
 Button.protoTypes = {
   label: string.isRequired,
   onPress: func,
-}
+};
 
 Button.defaultProps = {
-  onPress:  null,
-}
-
+  onPress: null,
+};
 
 const styles = StyleSheet.create({
   bottonContainer: {
@@ -36,4 +35,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     color: '#FFFFFF',
   },
-})
+});

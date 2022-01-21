@@ -1,32 +1,53 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, } from 'react-native';
+import {
+  View, StyleSheet, Text, TextInput, TouchableOpacity,
+} from 'react-native';
 import Button from '../components/Button';
-import AppBar from '../components/AppBar';
 
-export default function LoginScreen() {
+export default function LoginScreen(props) {
+  const { navigation } = props;
   return (
     <View style={styles.container}>
-      <AppBar></AppBar>
       <View style={styles.inner}>
         <Text style={styles.title}>Log In</Text>
         <TextInput style={styles.input} value="Email address" />
         <TextInput style={styles.input} value="password" />
-        <Button label="Submit" />
+        <Button
+          label="Submit"
+          onPress={() => {
+            // 0番目をMemoListで上がいて表示する
+            navigation.reset({
+              index: 0,
+              routes: [{
+                name: 'MemoList',
+              }],
+            });
+          }}
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registerd?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{
+                  name: 'SingUp',
+                }],
+              });
+            }}
+          >
             <Text style={styles.footerLink}>Sing up here!</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F4F8'
+    backgroundColor: '#F0F4F8',
   },
   inner: {
     paddingVertical: 24,
@@ -56,10 +77,10 @@ const styles = StyleSheet.create({
   footerLink: {
     fontSize: 14,
     lineHeight: 24,
-    color:  '#467FD3',
+    color: '#467FD3',
   },
   footer: {
     flexDirection: 'row',
-  }
+  },
 
-})
+});
