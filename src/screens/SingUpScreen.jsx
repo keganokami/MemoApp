@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, Text, TextInput, TouchableOpacity,
+  View, StyleSheet, Text, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
+import firebase from 'firebase';
 import Button from '../components/Button';
 
 export default function SingUpScreen(props) {
@@ -9,6 +11,23 @@ export default function SingUpScreen(props) {
   // useState 第一引数と関数型を配列で返す関数らしい
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function handlePress() {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const { user } = userCredential;
+        console.log(user.uid);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      })
+      .catch((error) => {
+        console.log(error.code, error.message);
+        Alert.alert(error.code);
+      });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -33,15 +52,8 @@ export default function SingUpScreen(props) {
           textContentType="password"
         />
         <Button
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{
-                name: 'MemoList',
-              }],
-            });
-          }}
           label="Submit"
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registerd?</Text>

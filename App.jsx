@@ -4,6 +4,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
+// firebase
+import firebase from 'firebase';
+// firebase config
+import { firebaseConfig } from './env';
+
 // screen
 import LoginScreen from './src/screens/LoginScreen';
 import SingUpScreen from './src/screens/SingUpScreen';
@@ -14,12 +19,16 @@ import MemoListScreen from './src/screens/MemoListScreen';
 
 const Stack = createStackNavigator();
 
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 export default function App() {
   return (
     <NavigationContainer>
       {/* pageの履歴を積み上げる */}
       <Stack.Navigator
-        initialRouteName="LogIn"
+        initialRouteName="SingUp"
         screenOptions={{
           headerStyle: { backgroundColor: '#467FD3' },
           headerTitleStyle: { color: '#FFFFFF' },

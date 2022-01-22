@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 import {
-  View, StyleSheet, Text, TextInput, TouchableOpacity,
+  View, StyleSheet, Text, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
+import firebase from 'firebase';
 import Button from '../components/Button';
 
 export default function LoginScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { navigation } = props;
+
+  function handlePress() {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // 0番目をMemoListで上がいて表示する
+        const { user } = userCredential;
+        console.log(user.uid);
+        navigation.reset({
+          index: 0,
+          routes: [{
+            name: 'MemoList',
+          }],
+        });
+      })
+      .catch((error) => {
+        Alert.alert(error.code);
+      });
+  }
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -33,15 +52,7 @@ export default function LoginScreen(props) {
         />
         <Button
           label="Submit"
-          onPress={() => {
-            // 0番目をMemoListで上がいて表示する
-            navigation.reset({
-              index: 0,
-              routes: [{
-                name: 'MemoList',
-              }],
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registerd?</Text>
