@@ -28,7 +28,7 @@ export default function App() {
     <NavigationContainer>
       {/* pageの履歴を積み上げる */}
       <Stack.Navigator
-        initialRouteName="SingUp"
+        initialRouteName="LogIn"
         screenOptions={{
           headerStyle: { backgroundColor: '#467FD3' },
           headerTitleStyle: { color: '#FFFFFF' },

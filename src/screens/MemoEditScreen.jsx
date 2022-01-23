@@ -5,6 +5,7 @@ import KeyboardSafeView from '../components/KeywordSafeView';
 
 export default function MemoEditScreen(props) {
   const { navigation } = props;
+
   return (
     <KeyboardSafeView style={styles.container}>
       <View style={styles.inputContainer}>
